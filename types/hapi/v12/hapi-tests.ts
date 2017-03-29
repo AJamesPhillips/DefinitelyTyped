@@ -1,6 +1,8 @@
-/// <reference path="hapi.d.ts" />
+// Copied directly from 918608a5e007d925f4f60a275881057f07c12619 which seems to
+// be the last author to work on v12.0
 
-import Hapi = require("hapi");
+
+import * as Hapi from 'hapi';
 
 // Create a server with a host and port
 var server = new Hapi.Server();

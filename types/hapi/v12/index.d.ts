@@ -3,10 +3,12 @@
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-//Note/Disclaimer: This .d.ts was created against hapi v8.x but has been incrementally upgraded to 12.x.  Some newer features/changes may be missing.  YMMV.
+// Note/Disclaimer:
+// Copied directly from 918608a5e007d925f4f60a275881057f07c12619 which seems to
+// be the last author to work on v12.0
 
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module "hapi" {
     import http = require("http");
@@ -513,8 +515,8 @@ declare module "hapi" {
         pre?: any[];
         /** validation rules for the outgoing response payload (response body).Can only validate object response: */
         response?: {
-            /** the default HTTP status code when the payload is empty. Value can be 200 or 204. 
-            Note that a 200 status code is converted to a 204 only at the time or response transmission 
+            /** the default HTTP status code when the payload is empty. Value can be 200 or 204.
+            Note that a 200 status code is converted to a 204 only at the time or response transmission
             (the response status code will remain 200 throughout the request lifecycle unless manually set). Defaults to 200. */
             emptyStatusCode?: number;
 			/**   the default response object validation rules (for all non-error responses) expressed as one of:
