@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "hapi": [
+                "hapi/v16"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "hapi-tests.ts",
+        "tests/getting-started/01-creating-a-server.ts",
+        "tests/getting-started/02-adding-routes.ts",
+        "tests/getting-started/03-serving-static-content.ts",
+        "tests/getting-started/04-using-plugins.ts",
+        "tests/server/new.ts"
+    ]
+}
