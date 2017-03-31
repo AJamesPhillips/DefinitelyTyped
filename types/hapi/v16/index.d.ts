@@ -36,13 +36,13 @@ export interface IHeaderOptions {
 /** Boom Module for errors. https://github.com/hapijs/boom
  *  boom provides a set of utilities for returning HTTP errors. Each utility returns a Boom error response object (instance of Error) which includes the following properties:  */
 export interface IBoom extends Error {
-    /**  if true, indicates this is a Boom object instance.  */
+    /** if true, indicates this is a Boom object instance.  */
     isBoom: boolean;
     /** convenience bool indicating status code >= 500.  */
     isServer: boolean;
-    /**  the error message.  */
+    /** the error message.  */
     message: string;
-    /**  the formatted response.Can be directly manipulated after object construction to return a custom error response.Allowed root keys:  */
+    /** the formatted response.Can be directly manipulated after object construction to return a custom error response.Allowed root keys:  */
     output: {
         /** the HTTP status code (typically 4xx or 5xx).  */
         statusCode: number;
@@ -58,57 +58,57 @@ export interface IBoom extends Error {
             message: string;
         };
     };
-    /**  reformat()rebuilds error.output using the other object properties.  */
+    /** reformat()rebuilds error.output using the other object properties.  */
     reformat(): void;
 
 }
 
 /** cache functionality via the "CatBox" module. */
 export interface ICatBoxCacheOptions {
-    /**  a prototype function or catbox engine object.  */
+    /** a prototype function or catbox engine object.  */
     engine: any;
-    /**  an identifier used later when provisioning or configuring caching for server methods or plugins. Each cache name must be unique. A single item may omit the name option which defines the default cache. If every cache includes a name, a default memory cache is provisions as well.  */
+    /** an identifier used later when provisioning or configuring caching for server methods or plugins. Each cache name must be unique. A single item may omit the name option which defines the default cache. If every cache includes a name, a default memory cache is provisions as well.  */
     name?: string;
-    /**  if true, allows multiple cache users to share the same segment (e.g. multiple methods using the same cache storage container). Default to false.  */
+    /** if true, allows multiple cache users to share the same segment (e.g. multiple methods using the same cache storage container). Default to false.  */
     shared?: boolean;
-    /**  other options passed to the catbox strategy used. */
+    /** other options passed to the catbox strategy used. */
     [index: string]: any;
 }
 
-    /** policy configuration for the "CatBox" module and server method options. */
-    export interface ICatBoxCachePolicyOptions {
-        /** the cache name configured in server.cache. Defaults to the default cache. */
-        cache?: string;
-        /** string segment name, used to isolate cached items within the cache partition. When called within a plugin, defaults to '!name' where 'name' is the plugin name. When called within a server method, defaults to '#name' where 'name' is the server method name. Required when called outside of a plugin. */
-        segment?: string;
-        /** if true, allows multiple cache provisions to share the same segment. Default to false. */
-        shared?: boolean;
-        /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
-        expiresIn?: number;
-        /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records expire. Uses local time. Cannot be used together with expiresIn. */
-        expiresAt?: number;
-        /** a function used to generate a new cache item if one is not found in the cache when calling get(). The method's signature is function(id, next) where: - id - the id string or object provided to the get() method. - next - the method called when the new item is returned with the signature function(err, value, ttl) where: - err - an error condition. - value - the new value generated. - ttl - the cache ttl value in milliseconds. Set to 0 to skip storing in the cache. Defaults to the cache global policy. */
-        generateFunc?: Function;
-        /** number of milliseconds to mark an item stored in cache as stale and attempt to regenerate it when generateFunc is provided. Must be less than expiresIn. */
-        staleIn?: number;
-        /** number of milliseconds to wait before checking if an item is stale. */
-        staleTimeout?: number;
-        /** number of milliseconds to wait before returning a timeout error when the generateFunc function takes too long to return a value. When the value is eventually returned, it is stored in the cache for future requests. Required if generateFunc is present. Set to false to disable timeouts which may cause all get() requests to get stuck forever. */
-        generateTimeout?: number;
-        /** if true, an error or timeout in the generateFunc causes the stale value to be evicted from the cache. Defaults to true */
-        dropOnError?: boolean;
-        /** if false, an upstream cache read error will stop the cache.get() method from calling the generate function and will instead pass back the cache error. Defaults to true. */
-        generateOnReadError?: boolean;
-        /** if false, an upstream cache write error when calling cache.get() will be passed back with the generated value when calling. Defaults to true. */
-        generateIgnoreWriteError?: boolean;
-        /** number of milliseconds while generateFunc call is in progress for a given id, before a subsequent generateFunc call is allowed. Defaults to 0 (no blocking of concurrent generateFunc calls beyond staleTimeout). */
-        pendingGenerateTimeout?: number;
-    }
+/** policy configuration for the "CatBox" module and server method options. */
+export interface ICatBoxCachePolicyOptions {
+    /** the cache name configured in server.cache. Defaults to the default cache. */
+    cache?: string;
+    /** string segment name, used to isolate cached items within the cache partition. When called within a plugin, defaults to '!name' where 'name' is the plugin name. When called within a server method, defaults to '#name' where 'name' is the server method name. Required when called outside of a plugin. */
+    segment?: string;
+    /** if true, allows multiple cache provisions to share the same segment. Default to false. */
+    shared?: boolean;
+    /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
+    expiresIn?: number;
+    /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records expire. Uses local time. Cannot be used together with expiresIn. */
+    expiresAt?: number;
+    /** a function used to generate a new cache item if one is not found in the cache when calling get(). The method's signature is function(id, next) where: - id - the id string or object provided to the get() method. - next - the method called when the new item is returned with the signature function(err, value, ttl) where: - err - an error condition. - value - the new value generated. - ttl - the cache ttl value in milliseconds. Set to 0 to skip storing in the cache. Defaults to the cache global policy. */
+    generateFunc?: Function;
+    /** number of milliseconds to mark an item stored in cache as stale and attempt to regenerate it when generateFunc is provided. Must be less than expiresIn. */
+    staleIn?: number;
+    /** number of milliseconds to wait before checking if an item is stale. */
+    staleTimeout?: number;
+    /** number of milliseconds to wait before returning a timeout error when the generateFunc function takes too long to return a value. When the value is eventually returned, it is stored in the cache for future requests. Required if generateFunc is present. Set to false to disable timeouts which may cause all get() requests to get stuck forever. */
+    generateTimeout?: number;
+    /** if true, an error or timeout in the generateFunc causes the stale value to be evicted from the cache. Defaults to true */
+    dropOnError?: boolean;
+    /** if false, an upstream cache read error will stop the cache.get() method from calling the generate function and will instead pass back the cache error. Defaults to true. */
+    generateOnReadError?: boolean;
+    /** if false, an upstream cache write error when calling cache.get() will be passed back with the generated value when calling. Defaults to true. */
+    generateIgnoreWriteError?: boolean;
+    /** number of milliseconds while generateFunc call is in progress for a given id, before a subsequent generateFunc call is allowed. Defaults to 0 (no blocking of concurrent generateFunc calls beyond staleTimeout). */
+    pendingGenerateTimeout?: number;
+}
 
 
 /** Any connections configuration server defaults can be included to override and customize the individual connection. */
 export interface IServerConnectionOptions extends IConnectionConfigurationServerDefaults {
-    /**  - the public hostname or IP address. Used only to set server.info.host and server.info.uri. If not configured, defaults to the operating system hostname and if not available, to 'localhost'.*/
+    /** - the public hostname or IP address. Used only to set server.info.host and server.info.uri. If not configured, defaults to the operating system hostname and if not available, to 'localhost'.*/
     host?: string;
     /** - sets the host name or IP address the connection will listen on.If not configured, defaults to host if present, otherwise to all available network interfaces (i.e. '0.0.0.0').Set to 127.0.0.1 or localhost to restrict connection to only those coming from the same machine.*/
     address?: string;
@@ -116,43 +116,43 @@ export interface IServerConnectionOptions extends IConnectionConfigurationServer
     port?: string | number;
     /** - the full public URI without the path (e.g. 'http://example.com:8080').If present, used as the connection info.uri otherwise constructed from the connection settings.*/
     uri?: string;
-    /**  - optional node.js HTTP (or HTTPS) http.Server object or any compatible object.If the listener needs to be manually started, set autoListen to false.If the listener uses TLS, set tls to true.*/
+    /** - optional node.js HTTP (or HTTPS) http.Server object or any compatible object.If the listener needs to be manually started, set autoListen to false.If the listener uses TLS, set tls to true.*/
     listener?: any;
-    /**  - indicates that the connection.listener will be started manually outside the framework.Cannot be specified with a port setting.Defaults to true.*/
+    /** - indicates that the connection.listener will be started manually outside the framework.Cannot be specified with a port setting.Defaults to true.*/
     autoListen?: boolean;
-    /**  caching headers configuration: */
+    /** caching headers configuration: */
     cache?: {
         /** - an array of HTTP response status codes (e.g. 200) which are allowed to include a valid caching directive.Defaults to [200]. */
         statuses: number[];
     };
     /** - a string or string array of labels used to server.select() specific connections matching the specified labels.Defaults to an empty array [](no labels).*/
     labels?: string | string[];
-    /**  - used to create an HTTPS connection.The tls object is passed unchanged as options to the node.js HTTPS server as described in the node.js HTTPS documentation.Set to true when passing a listener object that has been configured to use TLS directly. */
+    /** - used to create an HTTPS connection.The tls object is passed unchanged as options to the node.js HTTPS server as described in the node.js HTTPS documentation.Set to true when passing a listener object that has been configured to use TLS directly. */
     tls?: boolean | { key?: string; cert?: string; pfx?: string; } | Object;
 
 }
 
 export interface IConnectionConfigurationServerDefaults {
-    /**  application-specific connection configuration which can be accessed via connection.settings.app. Provides a safe place to store application configuration without potential conflicts with the framework internals. Should not be used to configure plugins which should use plugins[name]. Note the difference between connection.settings.app which is used to store configuration values and connection.app which is meant for storing run-time state.  */
+    /** application-specific connection configuration which can be accessed via connection.settings.app. Provides a safe place to store application configuration without potential conflicts with the framework internals. Should not be used to configure plugins which should use plugins[name]. Note the difference between connection.settings.app which is used to store configuration values and connection.app which is meant for storing run-time state.  */
     app?: any;
     /** if false, response content encoding is disabled. Defaults to true */
     compression?: boolean;
-    /**  connection load limits configuration where:  */
+    /** connection load limits configuration where:  */
     load?: {
-        /**  maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
+        /** maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
         maxHeapUsedBytes: number;
-        /**  maximum process RSS size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
+        /** maximum process RSS size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
         maxRssBytes: number;
-        /**  maximum event loop delay duration in milliseconds over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
+        /** maximum event loop delay duration in milliseconds over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
         maxEventLoopDelay: number;
     };
-    /**  plugin-specific configuration which can later be accessed via connection.settings.plugins. Provides a place to store and pass connection-specific plugin configuration. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between connection.settings.plugins which is used to store configuration values and connection.plugins which is meant for storing run-time state. */
+    /** plugin-specific configuration which can later be accessed via connection.settings.plugins. Provides a place to store and pass connection-specific plugin configuration. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between connection.settings.plugins which is used to store configuration values and connection.plugins which is meant for storing run-time state. */
     plugins?: any;
-    /**  controls how incoming request URIs are matched against the routing table: */
+    /** controls how incoming request URIs are matched against the routing table: */
     router?: {
-        /**  determines whether the paths '/example' and '/EXAMPLE' are considered different resources. Defaults to true.  */
+        /** determines whether the paths '/example' and '/EXAMPLE' are considered different resources. Defaults to true.  */
         isCaseSensitive?: boolean;
-        /**  removes trailing slashes on incoming paths. Defaults to false.  */
+        /** removes trailing slashes on incoming paths. Defaults to false.  */
         stripTrailingSlash?: boolean;
     };
     /** a route options object used to set the default configuration for every route. */
@@ -162,9 +162,9 @@ export interface IConnectionConfigurationServerDefaults {
 
 /** Note that the options object is deeply cloned and cannot contain any values that are unsafe to perform deep copy on.*/
 export interface IServerOptions {
-    /**  application-specific configuration which can later be accessed via server.settings.app. Note the difference between server.settings.app which is used to store static configuration values and server.app which is meant for storing run-time state. Defaults to {}.  */
+    /** application-specific configuration which can later be accessed via server.settings.app. Note the difference between server.settings.app which is used to store static configuration values and server.app which is meant for storing run-time state. Defaults to {}.  */
     app?: any;
-    /**   sets up server-side caching. Every server includes a default cache for storing application state. By default, a simple memory-based cache is created which has limited capacity and capabilities. hapi uses catbox for its cache which includes support for common storage solutions (e.g. Redis, MongoDB, Memcached, and Riak). Caching is only utilized if methods and plugins explicitly store their state in the cache. The server cache configuration only defines the storage container itself. cache can be assigned:
+    /**  sets up server-side caching. Every server includes a default cache for storing application state. By default, a simple memory-based cache is created which has limited capacity and capabilities. hapi uses catbox for its cache which includes support for common storage solutions (e.g. Redis, MongoDB, Memcached, and Riak). Caching is only utilized if methods and plugins explicitly store their state in the cache. The server cache configuration only defines the storage container itself. cache can be assigned:
      a prototype function (usually obtained by calling require() on a catbox strategy such as require('catbox-redis')).
      a configuration object with the following options:
      enginea prototype function or catbox engine object.
@@ -178,29 +178,29 @@ export interface IServerOptions {
      * against.  It can be typed correctly by making IServerOptions generic and overloading the server constructor.
      * If the consumer of this typing wants to pass `any` then they should do so explicitly. */
 
-    /**  sets the default connections configuration which can be overridden by each connection where:  */
+    /** sets the default connections configuration which can be overridden by each connection where:  */
     connections?: IConnectionConfigurationServerDefaults;
     /** determines which logged events are sent to the console (this should only be used for development and does not affect which events are actually logged internally and recorded). Set to false to disable all console logging, or to an object*/
     debug?: boolean | {
         /** - a string array of server log tags to be displayed via console.error() when the events are logged via server.log() as well as internally generated server logs. For example, to display all errors, set the option to ['error']. To turn off all console debug messages set it to false. Defaults to uncaught errors thrown in external code (these errors are handled automatically and result in an Internal Server Error response) or runtime errors due to developer error. */
         log: string[];
-        /**  - a string array of request log tags to be displayed via console.error() when the events are logged via request.log() as well as internally generated request logs. For example, to display all errors, set the option to ['error']. To turn off all console debug messages set it to false. Defaults to uncaught errors thrown in external code (these errors are handled automatically and result in an Internal Server Error response) or runtime errors due to developer error.*/
+        /** - a string array of request log tags to be displayed via console.error() when the events are logged via request.log() as well as internally generated request logs. For example, to display all errors, set the option to ['error']. To turn off all console debug messages set it to false. Defaults to uncaught errors thrown in external code (these errors are handled automatically and result in an Internal Server Error response) or runtime errors due to developer error.*/
         request: string[];
     };
     /** file system related settings*/
     files?: {
-        /**  sets the maximum number of file etag hash values stored in the etags cache. Defaults to 10000.*/
+        /** sets the maximum number of file etag hash values stored in the etags cache. Defaults to 10000.*/
         etagsCacheMaxSize?: number;
     };
-    /**  process load monitoring*/
+    /** process load monitoring*/
     load?: {
-        /**  the frequency of sampling in milliseconds. Defaults to 0 (no sampling).*/
+        /** the frequency of sampling in milliseconds. Defaults to 0 (no sampling).*/
         sampleInterval?: number;
     };
 
     /** options passed to the mimos module (https://github.com/hapijs/mimos) when generating the mime database used by the server and accessed via server.mime.*/
     mime?: any;
-    /**  if true, does not load the inert (file and directory support), h2o2 (proxy support), and vision (views support) plugins automatically. The plugins can be loaded manually after construction. Defaults to false (plugins loaded). */
+    /** if true, does not load the inert (file and directory support), h2o2 (proxy support), and vision (views support) plugins automatically. The plugins can be loaded manually after construction. Defaults to false (plugins loaded). */
     minimal?: boolean;
     /** plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state. Defaults to {}.*/
     plugins?: IDictionary<any>;
@@ -213,7 +213,7 @@ export interface IServerViewCompile {
 }
 
 export interface IServerViewsAdditionalOptions {
-    /**    path - the root file path used to resolve and load the templates identified when calling reply.view().Defaults to current working directory.*/
+    /**   path - the root file path used to resolve and load the templates identified when calling reply.view().Defaults to current working directory.*/
     path?: string;
     /**partialsPath - the root file path where partials are located.Partials are small segments of template code that can be nested and reused throughout other templates.Defaults to no partials support (empty path).
      */
@@ -274,7 +274,7 @@ path: '/static/templates'
 export interface IServerViewsConfiguration extends IServerViewsAdditionalOptions {
     /** - required object where each key is a file extension (e.g. 'html', 'hbr'), mapped to the npm module used for rendering the templates.Alternatively, the extension can be mapped to an object with the following options:*/
     engines: IDictionary<any> | IServerViewsEnginesOptions;
-    /**  defines the default filename extension to append to template names when multiple engines are configured and not explicit extension is provided for a given template. No default value.*/
+    /** defines the default filename extension to append to template names when multiple engines are configured and not explicit extension is provided for a given template. No default value.*/
     defaultExtension?: string;
 }
 
@@ -285,9 +285,9 @@ interface IReplyMethods {
     continue(credentialData?: any): void;
 
     /** Transmits a file from the file system. The 'Content-Type' header defaults to the matching mime type based on filename extension.  The response flow control rules do not apply. */
-    file(/**   the file path. */
+    file(/**  the file path. */
         path: string,
-        /**  optional settings:  */
+        /** optional settings:  */
         options?: {
             /** - an optional filename to specify if sending a 'Content-Disposition' header, defaults to the basename of path*/
             filename?: string;
@@ -296,16 +296,16 @@ interface IReplyMethods {
              'attachment'
              'inline'*/
             mode?: boolean | string;
-            /**   if true, looks for the same filename with the '.gz' suffix for a pre-compressed version of the file to serve if the request supports content encoding. Defaults to false.  */
+            /**  if true, looks for the same filename with the '.gz' suffix for a pre-compressed version of the file to serve if the request supports content encoding. Defaults to false.  */
             lookupCompressed: boolean;
         }): void;
-    /**  Concludes the handler activity by returning control over to the router with a templatized view response.
+    /** Concludes the handler activity by returning control over to the router with a templatized view response.
      the response flow control rules apply. */
-    view(/**  the template filename and path, relative to the templates path configured via the server views manager. */
+    view(/** the template filename and path, relative to the templates path configured via the server views manager. */
         template: string,
-        /**  optional object used by the template to render context-specific result. Defaults to no context {}. */
+        /** optional object used by the template to render context-specific result. Defaults to no context {}. */
         context?: {},
-        /**  optional object used to override the server's views manager configuration for this response. Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.  */
+        /** optional object used to override the server's views manager configuration for this response. Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.  */
         options?: any): Response;
     /** Sets a header on the response */
     header(name: string, value: string, options?: IHeaderOptions): Response;
@@ -313,13 +313,13 @@ interface IReplyMethods {
     /** Concludes the handler activity by returning control over to the router and informing the router that a response has already been sent back directly via request.raw.res and that no further response action is needed
      The response flow control rules do not apply. */
     close(options?: {
-        /**   if false, the router will not call request.raw.res.end()) to ensure the response was ended. Defaults to true.  */
+        /**  if false, the router will not call request.raw.res.end()) to ensure the response was ended. Defaults to true.  */
         end?: boolean;
     }): void;
     /** Proxies the request to an upstream endpoint.
      the response flow control rules do not apply. */
 
-    proxy(/**  an object including the same keys and restrictions defined by the route proxy handler options. */
+    proxy(/** an object including the same keys and restrictions defined by the route proxy handler options. */
         options: IProxyHandlerConfig): void;
     /** Redirects the client to the specified uri. Same as calling reply().redirect(uri).
      he response flow control rules apply. */
@@ -335,7 +335,7 @@ interface IReplyMethods {
     unstate(name: string, options?: any): void;
 }
 
-/**  Concludes the handler activity by setting a response and returning control over to the framework where:
+/** Concludes the handler activity by setting a response and returning control over to the framework where:
  erran optional error response.
     result an optional response payload.
     Since an request can only have one response regardless if it is an error or success, the reply() method can only result in a single response value. This means that passing both an err and result will only use the err. There is no requirement for either err or result to be (or not) an Error object. The framework will simply use the first argument if present, otherwise the second. The method supports two arguments to be compatible with the common callback pattern of error first.
@@ -344,13 +344,13 @@ interface IReplyMethods {
 export interface IReply extends IReplyMethods {
     <T>(err: Error,
         result?: string | number | boolean | Buffer | stream.Stream | IPromise<T> | T,
-        /**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
+        /** Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
         credentialData?: any): IBoom;
-    /**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
+    /** Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
     <T>(result: string | number | boolean | Buffer | stream.Stream | IPromise<T> | T): Response;
 }
 
-/**  Concludes the handler activity by setting a response and returning control over to the framework where:
+/** Concludes the handler activity by setting a response and returning control over to the framework where:
  erran optional error response.
     result an optional response payload.
     Since an request can only have one response regardless if it is an error or success, the reply() method can only result in a single response value. This means that passing both an err and result will only use the err. There is no requirement for either err or result to be (or not) an Error object. The framework will simply use the first argument if present, otherwise the second. The method supports two arguments to be compatible with the common callback pattern of error first.
@@ -359,17 +359,18 @@ export interface IReply extends IReplyMethods {
 export interface IStrictReply<T> extends IReplyMethods {
     (err: Error,
         result?: IPromise<T> | T,
-        /**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
+        /** Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
         credentialData?: any): IBoom;
-    /**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
+    /** Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
     (result: IPromise<T> | T): Response;
 }
 
-export interface ISessionHandler {
+/** The route handler function uses the signature function(request, reply) (NOTE: do not use a fat arrow style function for route handlers as they do not allow context binding and will cause problems when used in conjunction with server.bind) where:
+ * request - is the incoming request object (this is not the node.js request object).
+ * reply - the reply interface the handler must call to set a response and return control back to the framework.
+*/
+export interface IRouteHandler {
     (request: Request, reply: IReply): void;
-    }
-
-    export interface IStrictSessionHandler {
     <T>(request: Request, reply: IStrictReply<T>): void;
 }
 
@@ -381,19 +382,19 @@ export interface IRequestHandler<T> {
 export interface IFailAction {
     (source: string, error: any, next: () => void): void
 }
-/**  generates a reverse proxy handler */
+/** generates a reverse proxy handler */
 export interface IProxyHandlerConfig {
     /** the upstream service host to proxy requests to. The same path on the client request will be used as the path on the host.*/
     host?: string;
     /** the upstream service port. */
     port?: number;
-    /**  The protocol to use when making a request to the proxied host:
+    /** The protocol to use when making a request to the proxied host:
      'http'
      'https'*/
     protocol?: string;
-    /**  an absolute URI used instead of the incoming host, port, protocol, path, and query. Cannot be used with host, port, protocol, or mapUri.*/
+    /** an absolute URI used instead of the incoming host, port, protocol, path, and query. Cannot be used with host, port, protocol, or mapUri.*/
     uri?: string;
-    /**  if true, forwards the headers sent from the client to the upstream service being proxied to, headers sent from the upstream service will also be forwarded to the client. Defaults to false.*/
+    /** if true, forwards the headers sent from the client to the upstream service being proxied to, headers sent from the upstream service will also be forwarded to the client. Defaults to false.*/
     passThrough?: boolean;
     /** localStatePassThrough - if false, any locally defined state is removed from incoming requests before being passed upstream. This is a security feature to prevent local state (e.g. authentication cookies) from leaking upstream to other servers along with the cookies intended for those servers. This value can be overridden on a per state basis via the server.state() passThrough option. Defaults to false.*/
     localStatePassThrough?: boolean;
@@ -414,7 +415,7 @@ export interface IProxyHandlerConfig {
      uri - the absolute proxy URI.
      headers - optional object where each key is an HTTP request header and the value is the header content.*/
     mapUri?: (request: Request, callback: (err: any, uri: string, headers?: { [key: string]: string }) => void) => void;
-    /**  a custom function for processing the response from the upstream service before sending to the client. Useful for custom error handling of responses from the proxied endpoint or other payload manipulation. Function signature is function(err, res, request, reply, settings, ttl) where: - err - internal or upstream error returned from attempting to contact the upstream proxy. - res - the node response object received from the upstream service. res is a readable stream (use the wreck module read method to easily convert it to a Buffer or string). - request - is the incoming request object. - reply - the reply interface function. - settings - the proxy handler configuration. - ttl - the upstream TTL in milliseconds if proxy.ttl it set to 'upstream' and the upstream response included a valid 'Cache-Control' header with 'max-age'.*/
+    /** a custom function for processing the response from the upstream service before sending to the client. Useful for custom error handling of responses from the proxied endpoint or other payload manipulation. Function signature is function(err, res, request, reply, settings, ttl) where: - err - internal or upstream error returned from attempting to contact the upstream proxy. - res - the node response object received from the upstream service. res is a readable stream (use the wreck module read method to easily convert it to a Buffer or string). - request - is the incoming request object. - reply - the reply interface function. - settings - the proxy handler configuration. - ttl - the upstream TTL in milliseconds if proxy.ttl it set to 'upstream' and the upstream response included a valid 'Cache-Control' header with 'max-age'.*/
     onResponse?: (err: any,
         res: http.ServerResponse,
         req: Request,
@@ -428,81 +429,45 @@ export interface IProxyHandlerConfig {
     /** sets the maximum number of sockets available per outgoing proxy host connection. false means use the wreck module default value (Infinity). Does not affect non-proxy outgoing client connections. Defaults to Infinity.*/
     maxSockets?: boolean | number;
 }
-/**  TODO: fill in joi definition  */
+/** TODO: fill in joi definition  */
 export interface IJoi {
 
 }
-/**  a validation function using the signature function(value, options, next) */
+/** a validation function using the signature function(value, options, next) */
 export interface IValidationFunction {
 
-    (/**   the object containing the path parameters. */
+    (/**  the object containing the path parameters. */
         value: any,
-        /**  the server validation options. */
+        /** the server validation options. */
         options: any,
-        /**   the callback function called when validation is completed.  */
+        /**  the callback function called when validation is completed.  */
         next: (err: any, value: any) => void): void;
 }
-/**  a custom error handler function with the signature 'function(request, reply, source, error)` */
+/** a custom error handler function with the signature 'function(request, reply, source, error)` */
 export interface IRouteFailFunction {
-    /**  a custom error handler function with the signature 'function(request, reply, source, error)` */
+    /** a custom error handler function with the signature 'function(request, reply, source, error)` */
     (/** - the [request object]. */
         request: Request,
-        /**   the continuation reply interface. */
+        /**  the continuation reply interface. */
         reply: IReply,
-        /**  the source of the invalid field (e.g. 'path', 'query', 'payload'). */
+        /** the source of the invalid field (e.g. 'path', 'query', 'payload'). */
         source: string,
-        /**  the error object prepared for the client response (including the validation function error under error.data). */
+        /** the error object prepared for the client response (including the validation function error under error.data). */
         error: any): void;
 }
 
-/**  Each route can be customize to change the default behavior of the request lifecycle using the following options:  */
+/** Each route can be customize to change the default behavior of the request lifecycle using the following options:  */
 export interface IRouteAdditionalConfigurationOptions {
-    /**  application specific configuration.Should not be used by plugins which should use plugins[name] instead. */
+    /** application specific configuration.Should not be used by plugins which should use plugins[name] instead. */
     app?: any;
     /** authentication configuration.Value can be: false to disable authentication if a default strategy is set.
      a string with the name of an authentication strategy registered with server.auth.strategy().
      an object  */
-    auth?: boolean | string |
-    {
-        /**  the authentication mode.Defaults to 'required' if a server authentication strategy is configured, otherwise defaults to no authentication.Available values:
-         'required'authentication is required.
-         'optional'authentication is optional (must be valid if present).
-         'try'same as 'optional' but allows for invalid authentication. */
-        mode?: string;
-        /**  a string array of strategy names in order they should be attempted.If only one strategy is used, strategy can be used instead with the single string value.Defaults to the default authentication strategy which is available only when a single strategy is configured.  */
-        strategies?: string | Array<string>;
-        /**  if set, the payload (in requests other than 'GET' and 'HEAD') is authenticated after it is processed.Requires a strategy with payload authentication support (e.g.Hawk).Cannot be set to a value other than 'required' when the scheme sets the options.payload to true.Available values:
-         falseno payload authentication.This is the default value.
-         'required'payload authentication required.This is the default value when the scheme sets options.payload to true.
-         'optional'payload authentication performed only when the client includes payload authentication information (e.g.hash attribute in Hawk). */
-        payload?: string;
-        /**  the application scope required to access the route.Value can be a scope string or an array of scope strings.The authenticated credentials object scope property must contain at least one of the scopes defined to access the route.Set to false to remove scope requirements.Defaults to no scope required.  */
-        scope?: string | Array<string> | boolean;
-        /** the required authenticated entity type.If set, must match the entity value of the authentication credentials.Available values:
-         anythe authentication can be on behalf of a user or application.This is the default value.
-         userthe authentication must be on behalf of a user.
-         appthe authentication must be on behalf of an application. */
-        entity?: string;
-        /**
-         * an object or array of objects specifying the route access rules. Each rule is evaluated against an incoming
-         * request and access is granted if at least one rule matches. Each rule object must include at least one of:
-         */
-        access?: IRouteAdditionalConfigurationAuthAccess | IRouteAdditionalConfigurationAuthAccess[];
-    };
+    auth?: false | string | IRouteAuthConfiguration
     /** an object passed back to the provided handler (via this) when called. */
     bind?: any;
     /** if the route method is 'GET', the route can be configured to include caching directives in the response using the following options */
-    cache?: {
-        /**  mines the privacy flag included in clientside caching using the 'Cache-Control' header.Values are:
-         fault'no privacy flag.This is the default setting.
-         'public'mark the response as suitable for public caching.
-         'private'mark the response as suitable only for private caching.  */
-        privacy: string;
-        /**  relative expiration expressed in the number of milliseconds since the item was saved in the cache.Cannot be used together with expiresAt. */
-        expiresIn: number;
-        /**  time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire.Cannot be used together with expiresIn.  */
-        expiresAt: string;
-    };
+    cache?: RouteCacheOptions
     /** the Cross- Origin Resource Sharing protocol allows browsers to make cross- origin API calls.CORS is required by web applications running inside a browser which are loaded from a different domain than the API server.CORS headers are disabled by default. To enable, set cors to true, or to an object with the following options: */
     cors?: {
         /** a strings array of allowed origin servers ('Access-Control-Allow-Origin').The array can contain any combination of fully qualified origins along with origin strings containing a wildcard '' character, or a single `''origin string. Defaults to any origin['*']`. */
@@ -511,39 +476,39 @@ export interface IRouteAdditionalConfigurationOptions {
         matchOrigin?: boolean;
         /** if false, prevents the connection from returning the full list of non- wildcard origin values if the incoming origin header does not match any of the values.Has no impact if matchOrigin is set to false.Defaults to true. */
         isOriginExposed?: boolean;
-        /**  number of seconds the browser should cache the CORS response ('Access-Control-Max-Age').The greater the value, the longer it will take before the browser checks for changes in policy.Defaults to 86400 (one day). */
+        /** number of seconds the browser should cache the CORS response ('Access-Control-Max-Age').The greater the value, the longer it will take before the browser checks for changes in policy.Defaults to 86400 (one day). */
         maxAge?: number;
-        /**  a strings array of allowed headers ('Access-Control-Allow-Headers').Defaults to ['Authorization', 'Content-Type', 'If-None-Match']. */
+        /** a strings array of allowed headers ('Access-Control-Allow-Headers').Defaults to ['Authorization', 'Content-Type', 'If-None-Match']. */
         headers?: string[];
-        /**  a strings array of additional headers to headers.Use this to keep the default headers in place. */
+        /** a strings array of additional headers to headers.Use this to keep the default headers in place. */
         additionalHeaders?: string[];
-        /**  a strings array of allowed HTTP methods ('Access-Control-Allow-Methods').Defaults to ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS']. */
+        /** a strings array of allowed HTTP methods ('Access-Control-Allow-Methods').Defaults to ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS']. */
         methods?: string[];
-        /**  a strings array of additional methods to methods.Use this to keep the default methods in place. */
+        /** a strings array of additional methods to methods.Use this to keep the default methods in place. */
         additionalMethods?: string[];
-        /**  a strings array of exposed headers ('Access-Control-Expose-Headers').Defaults to ['WWW-Authenticate', 'Server-Authorization']. */
+        /** a strings array of exposed headers ('Access-Control-Expose-Headers').Defaults to ['WWW-Authenticate', 'Server-Authorization']. */
         exposedHeaders?: string[];
-        /**  a strings array of additional headers to exposedHeaders.Use this to keep the default headers in place. */
+        /** a strings array of additional headers to exposedHeaders.Use this to keep the default headers in place. */
         additionalExposedHeaders?: string[];
-        /**  if true, allows user credentials to be sent ('Access-Control-Allow-Credentials').Defaults to false. */
+        /** if true, allows user credentials to be sent ('Access-Control-Allow-Credentials').Defaults to false. */
         credentials?: boolean;
         /** if false, preserves existing CORS headers set manually before the response is sent.Defaults to true. */
         override?: boolean;
     };
-    /**   defines the behavior for serving static resources using the built-in route handlers for files and directories: */
+    /**  defines the behavior for serving static resources using the built-in route handlers for files and directories: */
     files?: {/** determines the folder relative paths are resolved against when using the file and directory handlers. */
         relativeTo: string;
     };
 
-    /**  an alternative location for the route handler option. */
-        handler?: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
+    /** an alternative location for the route handler option. */
+    handler?: IRouteHandler | string | IRouteHandlerConfig;
     /** an optional unique identifier used to look up the route using server.lookup(). */
     id?: number;
     /** optional arguments passed to JSON.stringify() when converting an object or error response to a string payload.Supports the following: */
     json?: {
         /** the replacer function or array.Defaults to no action. */
         replacer?: Function | string[];
-        /**  number of spaces to indent nested object keys.Defaults to no indentation. */
+        /** number of spaces to indent nested object keys.Defaults to no indentation. */
         space?: number | string;
         /** string suffix added after conversion to JSON string.Defaults to no suffix. */
         suffix?: string;
@@ -552,12 +517,12 @@ export interface IRouteAdditionalConfigurationOptions {
     jsonp?: string;
     /** determines how the request payload is processed: */
     payload?: {
-        /**  the type of payload representation requested. The value must be one of:
+        /** the type of payload representation requested. The value must be one of:
          'data'the incoming payload is read fully into memory.If parse is true, the payload is parsed (JSON, formdecoded, multipart) based on the 'Content- Type' header.If parse is false, the raw Buffer is returned.This is the default value except when a proxy handler is used.
          'stream'the incoming payload is made available via a Stream.Readable interface.If the payload is 'multipart/form-data' and parse is true, fields values are presented as text while files are provided as streams.File streams from a 'multipart/form-data' upload will also have a property hapi containing filename and headers properties.
          'file'the incoming payload in written to temporary file in the directory specified by the server's payload.uploads settings. If the payload is 'multipart/ formdata' and parse is true, fields values are presented as text while files are saved. Note that it is the sole responsibility of the application to clean up the files generated by the framework. This can be done by keeping track of which files are used (e.g. using the request.app object), and listening to the server 'response' event to perform any needed cleaup. */
         output: 'data' | 'stream' | 'file';
-        /**  can be true, false, or gunzip; determines if the incoming payload is processed or presented raw. true and gunzip includes gunzipping when the appropriate 'Content-Encoding' is specified on the received request. If parsing is enabled and the 'Content-Type' is known (for the whole payload as well as parts), the payload is converted into an object when possible. If the format is unknown, a Bad Request (400) error response is sent. Defaults to true, except when a proxy handler is used. The supported mime types are:
+        /** can be true, false, or gunzip; determines if the incoming payload is processed or presented raw. true and gunzip includes gunzipping when the appropriate 'Content-Encoding' is specified on the received request. If parsing is enabled and the 'Content-Type' is known (for the whole payload as well as parts), the payload is converted into an object when possible. If the format is unknown, a Bad Request (400) error response is sent. Defaults to true, except when a proxy handler is used. The supported mime types are:
          'application/json'
          'application/x-www-form-urlencoded'
          'application/octet-stream'
@@ -568,13 +533,13 @@ export interface IRouteAdditionalConfigurationOptions {
         allow?: string | string[];
         /** a mime type string overriding the 'Content-Type' header value received.Defaults to no override. */
         override?: string;
-        /**  limits the size of incoming payloads to the specified byte count.Allowing very large payloads may cause the server to run out of memory.Defaults to 1048576 (1MB).  */
+        /** limits the size of incoming payloads to the specified byte count.Allowing very large payloads may cause the server to run out of memory.Defaults to 1048576 (1MB).  */
         maxBytes?: number;
         /** payload reception timeout in milliseconds.Sets the maximum time allowed for the client to transmit the request payload (body) before giving up and responding with a Request Timeout (408) error response.Set to false to disable.Defaults to 10000 (10 seconds). */
         timeout?: number;
-        /**  the directory used for writing file uploads.Defaults to os.tmpDir(). */
+        /** the directory used for writing file uploads.Defaults to os.tmpDir(). */
         uploads?: string;
-        /**  determines how to handle payload parsing errors. Allowed values are:
+        /** determines how to handle payload parsing errors. Allowed values are:
          'error'return a Bad Request (400) error response. This is the default value.
          'log'report the error but continue processing the request.
          'ignore'take no action and continue processing the request. */
@@ -590,7 +555,7 @@ export interface IRouteAdditionalConfigurationOptions {
          Note that a 200 status code is converted to a 204 only at the time or response transmission
          (the response status code will remain 200 throughout the request lifecycle unless manually set). Defaults to 200. */
         emptyStatusCode?: number;
-        /**   the default response object validation rules (for all non-error responses) expressed as one of:
+        /**  the default response object validation rules (for all non-error responses) expressed as one of:
          true - any payload allowed (no validation performed). This is the default.
          false - no payload allowed.
          a Joi validation object.
@@ -603,7 +568,7 @@ export interface IRouteAdditionalConfigurationOptions {
         status?: { [statusCode: number]: boolean | any };
         /** the percent of responses validated (0100).Set to 0 to disable all validation.Defaults to 100 (all responses). */
         sample?: number;
-        /**  defines what to do when a response fails validation.Options are:
+        /** defines what to do when a response fails validation.Options are:
          errorreturn an Internal Server Error (500) error response.This is the default value.
          loglog the error but send the response.  */
         failAction?: string;
@@ -618,7 +583,7 @@ export interface IRouteAdditionalConfigurationOptions {
         hsts?: boolean | number | {
             /** the max- age portion of the header, as a number.Default is 15768000. */
             maxAge?: number;
-            /**  a boolean specifying whether to add the includeSubdomains flag to the header. */
+            /** a boolean specifying whether to add the includeSubdomains flag to the header. */
             includeSubdomains?: boolean;
             /** a boolean specifying whether to add the 'preload' flag (used to submit domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list) to the header. */
             preload?: boolean;
@@ -632,7 +597,7 @@ export interface IRouteAdditionalConfigurationOptions {
         };
         /** boolean that controls the 'X-XSS-PROTECTION' header for IE.Defaults to true which sets the header to equal '1; mode=block'.NOTE: This setting can create a security vulnerability in versions of IE below 8, as well as unpatched versions of IE8.See here and here for more information.If you actively support old versions of IE, it may be wise to explicitly set this flag to false. */
         xss?: boolean;
-        /**  boolean controlling the 'X-Download-Options' header for IE, preventing downloads from executing in your context.Defaults to true setting the header to 'noopen'. */
+        /** boolean controlling the 'X-Download-Options' header for IE, preventing downloads from executing in your context.Defaults to true setting the header to 'noopen'. */
         noOpen?: boolean;
         /** boolean controlling the 'X-Content-Type-Options' header.Defaults to true setting the header to its only and default option, 'nosniff'. */
         noSniff?: boolean;
@@ -647,7 +612,7 @@ export interface IRouteAdditionalConfigurationOptions {
          'ignore'take no action. */
         failAction: string;
     };
-    /**  request input validation rules for various request components.When using a Joi validation object, the values of the other inputs (i.e.headers, query, params, payload, and auth) are made available under the validation context (accessible in rules as Joi.ref('$query.key')).Note that validation is performed in order(i.e.headers, params, query, payload) and if type casting is used (converting a string to number), the value of inputs not yet validated will reflect the raw, unvalidated and unmodified values.The validate object supports: */
+    /** request input validation rules for various request components.When using a Joi validation object, the values of the other inputs (i.e.headers, query, params, payload, and auth) are made available under the validation context (accessible in rules as Joi.ref('$query.key')).Note that validation is performed in order(i.e.headers, params, query, payload) and if type casting is used (converting a string to number), the value of inputs not yet validated will reflect the raw, unvalidated and unmodified values.The validate object supports: */
     validate?: {
         /** validation rules for incoming request headers.Values allowed:
          * trueany headers allowed (no validation performed).This is the default.
@@ -679,7 +644,7 @@ export interface IRouteAdditionalConfigurationOptions {
          optionsthe server validation options.
          next(err, value)the callback function called when validation is completed. */
         query?: boolean | IJoi | IValidationFunction;
-        /**  validation rules for an incoming request payload (request body).Values allowed:
+        /** validation rules for an incoming request payload (request body).Values allowed:
          trueany payload allowed (no validation performed).This is the default.
          falseno payload allowed.
          a Joi validation object.
@@ -711,44 +676,72 @@ export interface IRouteAdditionalConfigurationOptions {
         socket: boolean | number;
     };
 
-    /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
+    /** ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
      *route description used for generating documentation (string).
      */
     description?: string;
-    /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
+    /** ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
      *route notes used for generating documentation (string or array of strings).
      */
     notes?: string | string[];
-    /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
+    /** ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
      *route tags used for generating documentation (array of strings).
      */
     tags?: string[];
 
-    /**  Enable logging of routes
+    /** Enable logging of routes
         */
     log?: boolean;
 }
 
-/**
- * specifying the route access rules. Each rule is evaluated against an incoming request and access is granted if at least one rule matches
- */
-export interface IRouteAdditionalConfigurationAuthAccess {
-    /**
-     * the application scope required to access the route. Value can be a scope string or an array of scope strings.
-     * The authenticated credentials object scope property must contain at least one of the scopes defined to access the route.
-     * If a scope string begins with a + character, that scope is required. If a scope string begins with a ! character,
-     * that scope is forbidden. For example, the scope ['!a', '+b', 'c', 'd'] means the incoming request credentials'
-     * scope must not include 'a', must include 'b', and must include on of 'c' or 'd'. You may also access properties
-     * on the request object (query and params} to populate a dynamic scope by using {} characters around the property name,
-     * such as 'user-{params.id}'. Defaults to false (no scope requirements).
-     */
-    scope?: string | Array<string> | boolean;
+export interface IRouteAuthConfiguration {
+    /** the authentication mode.Defaults to 'required' if a server authentication strategy is configured, otherwise defaults to no authentication.Available values:
+     'required' - authentication is required.
+     'optional' - authentication is optional (must be valid if present).
+     'try' - same as 'optional' but allows for invalid authentication. */
+    mode?: 'required' | 'optional' | 'try';
+    /** a string array of strategy names in order they should be attempted. If only one strategy is used, strategy can be used instead with the single string value. Defaults to the default authentication strategy which is available only when a single strategy is configured.  */
+    strategies?: string[];
+    strategy?: string;
+    /** if set, the payload (in requests other than 'GET' and 'HEAD') is authenticated after it is processed. Requires a strategy with payload authentication support (e.g. Hawk). Cannot be set to a value other than 'required' when the scheme sets the options.payload to true. Available values:
+     false - no payload authentication. This is the default value.
+     'required' - payload authentication required. This is the default value when the scheme sets options.payload to true.
+     'optional' - payload authentication performed only when the client includes payload authentication information (e.g. hash attribute in Hawk). */
+    payload?: false | 'required' | 'optional';
+    /** specifying the route access rules.  */
+    access?: IRouteAuthAccessConfiguation | IRouteAuthAccessConfiguation[];
+}
+
+/** specifying the route access rules. Each rule is evaluated against an incoming request and access is granted if at least one rule matches  */
+export interface IRouteAuthAccessConfiguation {
+    /** the application scope required to access the route. Value can be a scope string or an array of scope strings. The authenticated credentials object scope property must contain at least one of the scopes defined to access the route. If a scope string begins with a + character, that scope is required. If a scope string begins with a ! character, that scope is forbidden. For example, the scope ['!a', '+b', 'c', 'd'] means the incoming request credentials' scope must not include 'a', must include 'b', and must include one of 'c' or 'd'. You may also access properties on the request object (query and params) to populate a dynamic scope by using {} characters around the property name, such as 'user-{params.id}'. Defaults to false (no scope requirements).  */
+    scope?: false | string | string[];
     /** the required authenticated entity type. If set, must match the entity value of the authentication credentials. Available values:
      * any - the authentication can be on behalf of a user or application. This is the default value.
      * user - the authentication must be on behalf of a user which is identified by the presence of a user attribute in the credentials object returned by the authentication strategy.
      * app - the authentication must be on behalf of an application which is identified by the lack of presence of a user attribute in the credentials object returned by the authentication strategy.
      */
-    entity?: string;
+    entity?: 'any' | 'user' | 'app';
+}
+
+/** if the route method is 'GET', the route can be configured to include caching directives in the response. The default Cache-Control: no-cache header can be disabled by setting cache to false. Caching can be customized using an object with the following options: */
+// TODO check understanding.  The default is to have 'Cache-Control: no-cache', but you can disabled cache and disabled no-cache by setting RouteCacheOptions to false?
+export type RouteCacheOptions = false | IRouteCacheOptions;
+
+export interface IRouteCacheOptions {
+    /** determines the privacy flag included in client-side caching using the 'Cache-Control' header. Values are:
+    'default' - no privacy flag. This is the default setting.
+    'public' - mark the response as suitable for public caching.
+    'private' - mark the response as suitable only for private caching. */
+    privacy?: 'default' | 'public' | 'private';
+    /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
+    expiresIn?: number;
+    /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
+    expiresAt?: string;
+    /** an array of HTTP response status codes (e.g. 200) which are allowed to include a valid caching directive. Defaults to [200]. */
+    statuses?: [number];
+    /** a string with the value of the 'Cache-Control' header when caching is disabled. Defaults to 'no-cache'. */
+    otherwise?: string;
 }
 
 /** server.realm http://hapijs.com/api#serverrealm
@@ -768,7 +761,7 @@ export interface IServerRealm {
         route: {
             /** - the route path prefix used by any calls to server.route() from the server. */
             prefix: string;
-            /**  the route virtual host settings used by any calls to server.route() from the server. */
+            /** the route virtual host settings used by any calls to server.route() from the server. */
             vhost: string;
         };
 
@@ -777,7 +770,7 @@ export interface IServerRealm {
     plugin: string;
     /** plugin-specific state to be shared only among activities sharing the same active state. plugins is an object where each key is a plugin name and the value is the plugin state. */
     plugins: IDictionary<any>;
-    /**  settings overrides */
+    /** settings overrides */
     settings: {
         files: {
             relativeTo: any;
@@ -788,40 +781,40 @@ export interface IServerRealm {
 /** server.state(name, [options]) http://hapijs.com/api#serverstatename-options
  HTTP state management uses client cookies to persist a state across multiple requests. Registers a cookie definitions where:*/
 export interface IServerState {
-    /**  - the cookie name string. */name: string;
+    /** - the cookie name string. */name: string;
 
     /** - are the optional cookie settings: */options: {
-        /**  - time - to - live in milliseconds.Defaults to null (session time- life - cookies are deleted when the browser is closed).*/ttl: number;
-        /**  - sets the 'Secure' flag.Defaults to false.*/isSecure: boolean;
-        /**  - sets the 'HttpOnly' flag.Defaults to false.*/isHttpOnly: boolean
-        /**  - the path scope.Defaults to null (no path).*/path: any;
-        /**  - the domain scope.Defaults to null (no domain). */domain: any;
-        /**  if present and the cookie was not received from the client or explicitly set by the route handler, the cookie is automatically added to the response with the provided value. The value can be a function with signature function(request, next) where:
+        /** - time - to - live in milliseconds.Defaults to null (session time- life - cookies are deleted when the browser is closed).*/ttl: number;
+        /** - sets the 'Secure' flag.Defaults to false.*/isSecure: boolean;
+        /** - sets the 'HttpOnly' flag.Defaults to false.*/isHttpOnly: boolean
+        /** - the path scope.Defaults to null (no path).*/path: any;
+        /** - the domain scope.Defaults to null (no domain). */domain: any;
+        /** if present and the cookie was not received from the client or explicitly set by the route handler, the cookie is automatically added to the response with the provided value. The value can be a function with signature function(request, next) where:
          request - the request object.
          next - the continuation function using the function(err, value) signature.*/
         autoValue: (request: Request, next: (err: any, value: any) => void) => void;
-        /**  - encoding performs on the provided value before serialization. Options are:
+        /** - encoding performs on the provided value before serialization. Options are:
          'none' - no encoding. When used, the cookie value must be a string. This is the default value.
          'base64' - string value is encoded using Base64.
          'base64json' - object value is JSON-stringified than encoded using Base64.
          'form' - object value is encoded using the x-www-form-urlencoded method.
          'iron' - Encrypts and sign the value using iron.*/
         encoding: string;
-        /**  - an object used to calculate an HMAC for cookie integrity validation.This does not provide privacy, only a mean to verify that the cookie value was generated by the server.Redundant when 'iron' encoding is used.Options are:*/sign: {
+        /** - an object used to calculate an HMAC for cookie integrity validation.This does not provide privacy, only a mean to verify that the cookie value was generated by the server.Redundant when 'iron' encoding is used.Options are:*/sign: {
             /** - algorithm options.Defaults to require('iron').defaults.integrity.*/integrity: any;
             /** - password used for HMAC key generation.*/password: string;
         };
-        /**  - password used for 'iron' encoding.*/password: string;
+        /** - password used for 'iron' encoding.*/password: string;
         /** - options for 'iron' encoding.Defaults to require('iron').defaults.*/iron: any;
         /** - if false, errors are ignored and treated as missing cookies.*/ignoreErrors: boolean;
-        /**  - if true, automatically instruct the client to remove invalid cookies.Defaults to false.*/clearInvalid: boolean;
-        /**  - if false, allows any cookie value including values in violation of RFC 6265. Defaults to true.*/strictHeader: boolean;
-        /**  - overrides the default proxy localStatePassThrough setting.*/passThrough: any;
+        /** - if true, automatically instruct the client to remove invalid cookies.Defaults to false.*/clearInvalid: boolean;
+        /** - if false, allows any cookie value including values in violation of RFC 6265. Defaults to true.*/strictHeader: boolean;
+        /** - overrides the default proxy localStatePassThrough setting.*/passThrough: any;
     };
 }
 
 export interface IFileHandlerConfig {
-    /**  a path string or function as described above.*/
+    /** a path string or function as described above.*/
     path: string;
     /** an optional filename to specify if sending a 'Content-Disposition' header, defaults to the basename of path*/
     filename?: string;
@@ -928,35 +921,49 @@ export interface IRouteHandlerConfig {
         tags?: Array<string>;
     };
 }
+
+type HTTP_METHODS_PARTIAL = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
+
 /** Route configuration
- The route configuration object*/
+ * https://hapijs.com/api#route-configuration
+ * The route configuration object */
+// TODO check that the following refers to IRouteAdditionalConfigurationOptions "Note that the options object is deeply cloned (with the exception of bind which is shallowly copied) and cannot contain any values that are unsafe to perform deep copy on."
 export interface IRouteConfiguration {
-    /**  - (required) the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the connection router configuration option.The path can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters.*/
+    /** the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the connection router configuration option. The path can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters. */
     path: string;
-    /** - (required) the HTTP method.Typically one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'.Any HTTP method is allowed, except for 'HEAD'.Use '*' to match against any HTTP method (only when an exact match was not found, and any match with a specific method will be given a higher priority over a wildcard match).
-     * Can be assigned an array of methods which has the same result as adding the same route with different methods manually.*/
-    method: string | string[];
-    /**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
+    /** the HTTP method. Typically one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'. Any HTTP method is allowed, except for 'HEAD'. Use '*' to match against any HTTP method (only when an exact match was not found, and any match with a specific method will be given a higher priority over a wildcard match). Can be assigned an array of methods which has the same result as adding the same route with different methods manually. */
+    method: HTTP_METHODS_PARTIAL | '*' | (HTTP_METHODS_PARTIAL | '*')[];
+    /** an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field. Matching is done against the hostname part of the header only (excluding the port). Defaults to all hosts. */
     vhost?: string;
-    /**  - (required) the function called to generate the response after successful authentication and validation.The handler function is described in Route handler.If set to a string, the value is parsed the same way a prerequisite server method string shortcut is processed.Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler.*/
-        handler?: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
-    /** - additional route options.*/
-    config?: IRouteAdditionalConfigurationOptions;
+    /** the function called to generate the response after successful authentication and validation. The handler function is described in Route handler. If set to a string, the value is parsed the same way a prerequisite server method string shortcut is processed. Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler. */
+    // TODO check `{[index: string]: IRouteHandlerConfig}` part from "Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler."
+    handler?: IRouteHandler | string | {[index: string]: IRouteHandlerConfig};
+    /** additional route options. The config value can be an object or a function that returns an object using the signature function(server) where server is the server the route is being added to and this is bound to the current realm's bind option. */
+    config?: IRouteAdditionalConfigurationOptions | ((server: Server) => IRouteAdditionalConfigurationOptions);
 }
-/** Route public interface When route information is returned or made available as a property.  http://hapijs.com/api#route-public-interface */
-export interface IRoute {
 
-
+/** Route public interface
+ * http://hapijs.com/api#route-public-interface
+ * When route information is returned or made available as a property, it is an object with the following: */
+export interface IRoutePublicInterface {
     /** the route HTTP method. */
     method: string;
     /** the route path. */
     path: string;
     /** the route vhost option if configured. */
-    vhost?: string | Array<string>;
+    vhost?: string | string[];
     /** the [active realm] associated with the route.*/
     realm: IServerRealm;
     /** the [route options]  object with all defaults applied. */
     settings: IRouteAdditionalConfigurationOptions;
+    /** the route internal normalized string representing the normalized path. */
+    fingerprint: string;
+    /** route authentication utilities: */
+    auth: {
+        /** authenticates the passed request argument against the route's authentication access configuration. Returns true if the request would have passed the route's access requirements. Note that the route's authentication mode and strategies are ignored. The only match is made between the request.auth.credentials scope and entity information and the route access configuration. Also, if the route uses dynamic scopes, the scopes are constructed against the request.query and request.params which may or may not match between the route and the request's route. If this method is called using a request that has not been authenticated (yet or at all), it will return false if the route requires any authentication. */
+        // TODO check this
+        access: (request: Request) => boolean;
+    }
 }
 
 export interface IServerAuthScheme {
@@ -1010,7 +1017,7 @@ export interface IServerAuthScheme {
     response?<T>(request: Request, reply: IStrictReply<T>): void;
     /** an optional object  */
     options?: {
-        /**  if true, requires payload validation as part of the scheme and forbids routes from disabling payload auth validation. Defaults to false.*/
+        /** if true, requires payload validation as part of the scheme and forbids routes from disabling payload auth validation. Defaults to false.*/
         payload: boolean;
     }
 }
@@ -1044,7 +1051,7 @@ export interface IServerInject {
 }
 
 export interface IServerInjectOptions {
-    /**  the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
+    /** the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
     method: string;
     /** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
     url: string;
@@ -1087,7 +1094,7 @@ export interface IServerInjectOptions {
 export interface IConnectionTable {
     info: any;
     labels: any;
-    table: IRoute[];
+    table: IRoutePublicInterface[];
 }
 
 export interface ICookieSettings {
@@ -1111,7 +1118,7 @@ export interface ICookieSettings {
      'base64json' - object value is JSON- stringified than encoded using Base64.
      'form' - object value is encoded using the x- www - form - urlencoded method. */
     encoding?: string;
-    /**  - an object used to calculate an HMAC for cookie integrity validation.This does not provide privacy, only a mean to verify that the cookie value was generated by the server.Redundant when 'iron' encoding is used.Options are:
+    /** - an object used to calculate an HMAC for cookie integrity validation.This does not provide privacy, only a mean to verify that the cookie value was generated by the server.Redundant when 'iron' encoding is used.Options are:
      integrity - algorithm options.Defaults to require('iron').defaults.integrity.
      password - password used for HMAC key generation. */
     sign?: { integrity: any; password: string; }
@@ -1192,69 +1199,69 @@ return reply.continue();
 export class Request extends Events.EventEmitter {
     /** application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].*/
     app: any;
-    /**  authentication information*/
+    /** authentication information*/
     auth: {
         /** true is the request has been successfully authenticated, otherwise false.*/
         isAuthenticated: boolean;
-        /**  the credential object received during the authentication process. The presence of an object does not mean successful authentication.  can be set in the validate function's callback.*/
+        /** the credential object received during the authentication process. The presence of an object does not mean successful authentication.  can be set in the validate function's callback.*/
         credentials: any;
-        /**  an artifact object received from the authentication strategy and used in authentication-related actions.*/
+        /** an artifact object received from the authentication strategy and used in authentication-related actions.*/
         artifacts: any;
-        /**  the route authentication mode.*/
+        /** the route authentication mode.*/
         mode: any;
         /** the authentication error is failed and mode set to 'try'.*/
         error: any;
     };
     /** the connection used by this request*/
     connection: ServerConnection;
-    /**  the node domain object used to protect against exceptions thrown in extensions, handlers and route prerequisites. Can be used to manually bind callback functions otherwise bound to other domains.*/
+    /** the node domain object used to protect against exceptions thrown in extensions, handlers and route prerequisites. Can be used to manually bind callback functions otherwise bound to other domains.*/
     domain: any;
     /** the raw request headers (references request.raw.headers).*/
     headers: IDictionary<string>;
     /** a unique request identifier (using the format '{now}:{connection.info.id}:{5 digits counter}').*/
     id: string;
-    /**  request information */
+    /** request information */
     info: {
-        /**  the request preferred encoding. */
+        /** the request preferred encoding. */
         acceptEncoding: string;
-        /**  if CORS is enabled for the route, contains the following: */
+        /** if CORS is enabled for the route, contains the following: */
         cors: {
-            isOriginMatch: boolean; /**  true if the request 'Origin' header matches the configured CORS restrictions. Set to false if no 'Origin' header is found or if it does not match. Note that this is only available after the 'onRequest' extension point as CORS is configured per-route and no routing decisions are made at that point in the request lifecycle. */
+            isOriginMatch: boolean; /** true if the request 'Origin' header matches the configured CORS restrictions. Set to false if no 'Origin' header is found or if it does not match. Note that this is only available after the 'onRequest' extension point as CORS is configured per-route and no routing decisions are made at that point in the request lifecycle. */
         };
-        /**  content of the HTTP 'Host' header (e.g. 'example.com:8080'). */
+        /** content of the HTTP 'Host' header (e.g. 'example.com:8080'). */
         host: string;
-        /**  the hostname part of the 'Host' header (e.g. 'example.com').*/
+        /** the hostname part of the 'Host' header (e.g. 'example.com').*/
         hostname: string;
-        /**  request reception timestamp. */
+        /** request reception timestamp. */
         received: number;
-        /**  content of the HTTP 'Referrer' (or 'Referer') header. */
+        /** content of the HTTP 'Referrer' (or 'Referer') header. */
         referrer: string;
         /** remote client IP address. */
         remoteAddress: string;
-        /**  remote client port. */
+        /** remote client port. */
         remotePort: number;
-        /**  request response timestamp (0 is not responded yet). */
+        /** request response timestamp (0 is not responded yet). */
         responded: number;
     };
-    /**  the request method in lower case (e.g. 'get', 'post'). */
+    /** the request method in lower case (e.g. 'get', 'post'). */
     method: string;
-    /**  the parsed content-type header. Only available when payload parsing enabled and no payload error occurred. */
+    /** the parsed content-type header. Only available when payload parsing enabled and no payload error occurred. */
     mime: string;
-    /**  an object containing the values of params, query, and payload before any validation modifications made. Only set when input validation is performed.*/
+    /** an object containing the values of params, query, and payload before any validation modifications made. Only set when input validation is performed.*/
     orig: {
         params: any;
         query: any;
         payload: any;
     };
-    /**  an object where each key is a path parameter name with matching value as described in Path parameters.*/
+    /** an object where each key is a path parameter name with matching value as described in Path parameters.*/
     params: IDictionary<string>;
     /** an array containing all the path params values in the order they appeared in the path.*/
     paramsArray: string[];
-    /**  the request URI's path component. */
+    /** the request URI's path component. */
     path: string;
     /** the request payload based on the route payload.output and payload.parse settings.*/
     payload: stream.Readable | Buffer | any;
-    /**  plugin-specific state. Provides a place to store and pass request-level plugin data. The plugins is an object where each key is a plugin name and the value is the state.*/
+    /** plugin-specific state. Provides a place to store and pass request-level plugin data. The plugins is an object where each key is a plugin name and the value is the state.*/
     plugins: any;
     /** an object where each key is the name assigned by a route prerequisites function. The values are the raw values provided to the continuation function as argument. For the wrapped response object, use responses.*/
     pre: IDictionary<any>;
@@ -1264,13 +1271,13 @@ export class Request extends Events.EventEmitter {
     preResponses: any;
     /**an object containing the query parameters.*/
     query: any;
-    /**  an object containing the Node HTTP server objects. Direct interaction with these raw objects is not recommended.*/
+    /** an object containing the Node HTTP server objects. Direct interaction with these raw objects is not recommended.*/
     raw: {
         req: http.IncomingMessage;
         res: http.ServerResponse;
     };
     /** the route public interface.*/
-    route: IRoute;
+    route: IRoutePublicInterface;
     /** the server object. */
     server: Server;
     /** an object containing parsed HTTP state information (cookies) where each key is the cookie name and value is the matching cookie content after processing using any registered cookie definition. */
@@ -1369,7 +1376,7 @@ export class Request extends Events.EventEmitter {
         tags: string | string[],
         /** an optional message string or object with the application data being logged.*/
         data?: any,
-        /**  an optional timestamp expressed in milliseconds. Defaults to Date.now() (now).*/
+        /** an optional timestamp expressed in milliseconds. Defaults to Date.now() (now).*/
         timestamp?: number): void;
 
     /** request.getLog([tags], [internal])
@@ -1385,7 +1392,7 @@ export class Request extends Events.EventEmitter {
 
     getLog(/** is a single tag string or array of tag strings. If no tags specified, returns all events.*/
         tags?: string,
-        /**  filters the events to only those with a matching event.internal value. If true, only internal logs are included. If false, only user event are included. Defaults to all events (undefined).*/
+        /** filters the events to only those with a matching event.internal value. If true, only internal logs are included. If false, only user event are included. Defaults to all events (undefined).*/
         internal?: boolean): string[];
 
     /** request.tail([name])
@@ -1459,7 +1466,7 @@ return reply.continue();
 });*/
 export class Response extends Events.EventEmitter {
     isBoom: boolean;
-    /**  the HTTP response status code. Defaults to 200 (except for errors).*/
+    /** the HTTP response status code. Defaults to 200 (except for errors).*/
     statusCode: number;
     /** an object containing the response headers where each key is a header field name. Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepare for transmission.*/
     headers: IDictionary<string>;
@@ -1493,14 +1500,14 @@ export class Response extends Events.EventEmitter {
         varyEtag: boolean;
     }
 
-    /**  sets the HTTP 'Content-Length' header (to avoid chunked transfer encoding) where:
+    /** sets the HTTP 'Content-Length' header (to avoid chunked transfer encoding) where:
      length - the header value. Must match the actual payload size.*/
     bytes(length: number): Response;
 
-    /**  sets the 'Content-Type' HTTP header 'charset' property where: charset - the charset property value.*/
+    /** sets the 'Content-Type' HTTP header 'charset' property where: charset - the charset property value.*/
     charset(charset: string): Response;
 
-    /**  sets the HTTP status code where:
+    /** sets the HTTP status code where:
      statusCode - the HTTP status code.*/
     code(statusCode: number): Response;
 
@@ -1597,13 +1604,13 @@ export class ResponseRedirect extends Response {
 }
 /** info about a server connection */
 export interface IServerConnectionInfo {
-    /**  - a unique connection identifier (using the format '{hostname}:{pid}:{now base36}').*/
+    /** - a unique connection identifier (using the format '{hostname}:{pid}:{now base36}').*/
     id: string;
-    /**  - the connection creation timestamp.*/
+    /** - the connection creation timestamp.*/
     created: number;
-    /**  - the connection start timestamp (0 when stopped).*/
+    /** - the connection start timestamp (0 when stopped).*/
     started: number;
-    /**  the connection port based on the following rules:
+    /** the connection port based on the following rules:
      the configured port value before the server has been started.
      the actual port assigned when no port is configured or set to 0 after the server has been started.*/
     port: number;
@@ -1612,7 +1619,7 @@ export interface IServerConnectionInfo {
     host: string;
     /** - the active IP address the connection was bound to after starting.Set to undefined until the server has been started or when using a non TCP port (e.g. UNIX domain socket).*/
     address: string;
-    /**  - the protocol used:
+    /** - the protocol used:
      'http' - HTTP.
      'https' - HTTPS.
      'socket' - UNIX domain socket or Windows named pipe.*/
@@ -1706,7 +1713,7 @@ export class Server extends Events.EventEmitter {
     load: {
         /** - event loop delay milliseconds.*/
         eventLoopDelay: number;
-        /**  - V8 heap usage.*/
+        /** - V8 heap usage.*/
         heapUsed: number;
     };
     /** When the server contains exactly one connection, listener is the node HTTP server object of the sole connection.
@@ -2131,7 +2138,7 @@ export class Server extends Events.EventEmitter {
     }
     };
      server.handler('test', handler);*/
-    handler<THandlerConfig>(name: string, method: (route: IRoute, options: THandlerConfig) => ISessionHandler): void;
+    handler<THandlerConfig>(name: string, method: (route: IRoutePublicInterface, options: THandlerConfig) => IRouteHandler): void;
 
     /** server.initialize([callback])
      Initializes the server (starts the caches, finalizes plugin registration) but does not start listening
@@ -2201,7 +2208,7 @@ export class Server extends Events.EventEmitter {
     });
      var route = server.lookup('root');
      When the server contains more than one connection, each server.connections array member provides its own connection.lookup() method.*/
-    lookup(id: string): IRoute;
+    lookup(id: string): IRoutePublicInterface;
 
     /** server.match(method, path, [host])
      When the server contains exactly one connection, looks up a route configuration where:
@@ -2221,7 +2228,7 @@ export class Server extends Events.EventEmitter {
     });
      var route = server.match('get', '/');
      When the server contains more than one connection, each server.connections array member provides its own connection.match() method.*/
-    match(method: string, path: string, host?: string): IRoute;
+    match(method: string, path: string, host?: string): IRoutePublicInterface;
 
 
     /** server.method(name, method, [options])
@@ -2263,7 +2270,7 @@ export class Server extends Events.EventEmitter {
      server.methods.sumSync(4, 5, function (err, result) {
     console.log(result);
     }); */
-    method(/**  a unique method name used to invoke the method via server.methods[name]. When configured with caching enabled, server.methods[name].cache.drop(arg1, arg2, ..., argn, callback) can be used to clear the cache for a given key. Supports using nested names such as utils.users.get which will automatically create the missing path under server.methods and can be accessed for the previous example via server.methods.utils.users.get.*/
+    method(/** a unique method name used to invoke the method via server.methods[name]. When configured with caching enabled, server.methods[name].cache.drop(arg1, arg2, ..., argn, callback) can be used to clear the cache for a given key. Supports using nested names such as utils.users.get which will automatically create the missing path under server.methods and can be accessed for the previous example via server.methods.utils.users.get.*/
         name: string,
         method: IServerMethod,
         options?: IServerMethodOptions): void;

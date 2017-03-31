@@ -27,6 +27,11 @@
         "tests/getting-started/02-adding-routes.ts",
         "tests/getting-started/03-serving-static-content.ts",
         "tests/getting-started/04-using-plugins.ts",
+        "tests/route/config.ts",
+        "tests/route/handler.ts",
+        "tests/route/additional-options.ts",
+        "tests/route/public-interface.ts",
+        "tests/route/auth.ts",
         "tests/server/new.ts"
     ]
 }
