@@ -34,3 +34,29 @@ var directoryHandler: HapiES6.IDirectoryHandler = {
     },
     listing: true,
 }
+
+server.route({
+    method: 'GET',
+    path: '/file',
+    handler: function (request, reply) {
+
+        let path = 'plain.txt';
+        if (request.headers['x-magic'] === 'sekret') {
+            path = 'awesome.png';
+        }
+
+        return reply.file(path).vary('x-magic');
+    }
+});
+
+server.ext('onPostHandler', function (request, reply) {
+
+    const response = request.response;
+    if (response.isBoom &&
+        response.output.statusCode === 404) {
+
+        return reply.file('404.html').code(404);
+    }
+
+    return reply.continue();
+});
