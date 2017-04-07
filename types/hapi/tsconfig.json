@@ -12,11 +12,39 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "catbox": [
+                "hapi/catbox"
+            ],
+            "h2o2": [
+                "hapi/h2o2"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "hapi-tests.ts"
+        "hapi/connection.d.ts",
+        "hapi/misc.d.ts",
+        "hapi/reply.d.ts",
+        "hapi/request.d.ts",
+        "hapi/response.d.ts",
+        "hapi/route.d.ts",
+        "hapi/server_views.d.ts",
+        "hapi/server.d.ts",
+        "tests/getting-started/01-creating-a-server.ts",
+        "tests/getting-started/02-adding-routes.ts",
+        "tests/getting-started/03-serving-static-content.ts",
+        "tests/getting-started/04-using-plugins.ts",
+        "tests/route/config.ts",
+        "tests/route/handler.ts",
+        "tests/route/additional-options.ts",
+        "tests/route/public-interface.ts",
+        "tests/route/auth.ts",
+        "tests/server/new.ts",
+        "catbox/index.d.ts",
+        "h2o2/index.d.ts",
+        "h2o2/h2o2-tests.ts"
     ]
 }
