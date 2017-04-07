@@ -8,7 +8,7 @@
 
 import * as Boom from 'boom';
 
-interface ICallBack<T> {
+export interface ICallBack<T> {
     (err: null | Boom.BoomError, result: T): void;
 }
 
@@ -22,8 +22,8 @@ interface ICallBack<T> {
  *  * partition - the partition name used to isolate the cached results across multiple clients. The partition name is used as the MongoDB database name, the Riak bucket, or as a key prefix in Redis and Memcached. To share the cache across multiple clients, use the same partition name.
  * @see {@link https://github.com/hapijs/catbox#client}
  */
-interface Client extends IClient {
-    new(engine: Engine | IClient, options: ICatBoxOptions): IClient;
+export interface Client extends IClient {
+    new(engine: Engine | IClient, options: IClientOptions): IClient;
 }
 
 /**
@@ -31,7 +31,7 @@ interface Client extends IClient {
  * The Client object provides the following methods:
  * @see {@link https://github.com/hapijs/catbox#api}
  */
-interface IClient {
+export interface IClient {
     /** start(callback) - creates a connection to the cache server. Must be called before any other method is available. The callback signature is function(err). */
     start(callback: ICallBack<undefined>): void;
     /** stop() - terminates the connection to the cache server. */
@@ -61,15 +61,15 @@ interface IClient {
     validateSegmentName(segment: string): null | Boom.BoomError;
 }
 
-interface Engine {
-    new(settings: ICatBoxOptions): IClient;
+export interface Engine {
+    new(settings: IClientOptions): IClient;
 }
 
 /**
  * ICacheKey
  * Any method with a key argument takes an object with the following required properties:
  */
-interface ICacheKey {
+export interface ICacheKey {
     /** segment - a caching segment name string. Enables using a single cache server for storing different sets of items with overlapping ids. */
     segment: string;
     /** id - a unique item identifier string (per segment). Can be an empty string. */
@@ -77,7 +77,7 @@ interface ICacheKey {
 }
 
 /** Cached object contains the following: */
-interface ICachedObject {
+export interface ICachedObject {
     /** item - the value stored in the cache using set(). */
     item: any;
     /** stored - the timestamp when the item was stored in the cache (in milliseconds). */
@@ -88,7 +88,7 @@ interface ICachedObject {
 
 type CacheItem = any;
 
-interface ICatBoxOptions {
+export interface IClientOptions {
     partition: string;
 }
 
@@ -99,7 +99,7 @@ interface ICatBoxOptions {
  *  * segment - required when cache is provided. The segment name used to isolate cached items within the cache partition.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-interface Policy {
+export interface Policy {
     new(options: IPolicyOptions, cache: Client, segment: string): IPolicy;
 }
 
@@ -108,7 +108,7 @@ interface Policy {
  * The Policy object provides the following methods:
  * @see {@link https://github.com/hapijs/catbox#api-1}
  */
-interface IPolicy {
+export interface IPolicy {
     /**
      * get(id, callback) - retrieve an item from the cache. If the item is not found and the generateFunc method was provided, a new value is generated, stored in the cache, and returned. Multiple concurrent requests are queued and processed once. The method arguments are:
      *  * id - the unique item identifier (within the policy segment). Can be a string or an object with the required 'id' key.
@@ -158,7 +158,7 @@ interface IPolicy {
  * IPolicyOptions
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-interface IPolicyOptions {
+export interface IPolicyOptions {
     /** expiresIn - relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
     expiresIn?: number;
     /** expiresAt - time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Uses local time. Cannot be used together with expiresIn. */
@@ -196,7 +196,7 @@ interface IPolicyOptions {
  *      * ttl - the cache ttl value in milliseconds. Set to 0 to skip storing in the cache. Defaults to the cache global policy.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-interface IGenerateFunc {
+export interface IGenerateFunc {
     (id: string, next: ((err: null | Boom.BoomError, value: CacheItem, ttl?: number) => void)): void;
 }
 
@@ -208,11 +208,11 @@ interface IGenerateFunc {
  * @param cached - null if a valid item was not found in the cache, or IPolicyGetCallbackCachedOptions
  * @param report - an object with logging information about the generation operation
  */
-interface IPolicyGetCallback{
+export interface IPolicyGetCallback{
     (err: null | Boom.BoomError, value: CacheItem, cached: IPolicyGetCallbackCachedOptions, report: IPolicyGetCallbackReportLog): void;
 }
 
-interface IPolicyGetCallbackCachedOptions {
+export interface IPolicyGetCallbackCachedOptions {
     /** item - the cached value. */
     item: CacheItem;
     /** stored - the timestamp when the item was stored in the cache. */
@@ -226,7 +226,7 @@ interface IPolicyGetCallbackCachedOptions {
 /**
  * An object with logging information about the generation operation containing the following keys (as relevant):
  */
-interface IPolicyGetCallbackReportLog {
+export interface IPolicyGetCallbackReportLog {
     /** msec - the cache lookup time in milliseconds. */
     msec: number;
     /** stored - the timestamp when the item was stored in the cache. */

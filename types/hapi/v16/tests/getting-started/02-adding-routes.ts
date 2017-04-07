@@ -8,7 +8,7 @@ server.connection({ port: 3000, host: 'localhost' });
 server.route({
     method: 'GET',
     path: '/',
-    handler: function (request, reply) {
+    handler: function (request: Hapi.Request, reply: Hapi.IReply) {
         reply('Hello, world!');
     }
 });
@@ -16,7 +16,7 @@ server.route({
 server.route({
     method: 'GET',
     path: '/{name}',
-    handler: function (request, reply) {
+    handler: function (request: Hapi.Request, reply: Hapi.IReply) {
         reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
     }
 });

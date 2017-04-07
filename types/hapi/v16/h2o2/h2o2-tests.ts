@@ -4,9 +4,9 @@ import * as hapi from 'hapi';
 import * as Wreck from 'wreck';
 import * as h2o2 from 'h2o2';
 
-const handler = function (request: hapi.Request, reply: hapi.IReply) {
-    return reply.proxy({ host: 'example.com', port: 80, protocol: 'http' });
-};
+// const handler = function (request: hapi.Request, reply: hapi.IReply) {
+//     return reply.proxy({ host: 'example.com', port: 80, protocol: 'http' });
+// };
 
 const server = new hapi.Server({});
 
@@ -14,6 +14,13 @@ var proxyOptions: h2o2.IProxyHandlerOptions = {
     host: '10.33.33.1',
     port: '443',
     protocol: 'https'
+};
+var routeConfig: hapi.IRouteConfiguration = {
+    method: 'GET',
+    path: '/',
+    handler: {
+        proxy: proxyOptions
+    }
 };
 server.route({
     method: 'GET',

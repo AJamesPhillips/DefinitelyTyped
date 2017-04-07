@@ -15,6 +15,12 @@
         "paths": {
             "hapi": [
                 "hapi/v16"
+            ],
+            "catbox": [
+                "hapi/v16/catbox"
+            ],
+            "h2o2": [
+                "hapi/v16/h2o2"
             ]
         },
         "noEmit": true,
@@ -22,6 +28,14 @@
     },
     "files": [
         "index.d.ts",
+        "hapi/connection.d.ts",
+        "hapi/misc.d.ts",
+        "hapi/reply.d.ts",
+        "hapi/request.d.ts",
+        "hapi/response.d.ts",
+        "hapi/route.d.ts",
+        "hapi/server_views.d.ts",
+        "hapi/server.d.ts",
         "hapi-tests.ts",
         "tests/getting-started/01-creating-a-server.ts",
         "tests/getting-started/02-adding-routes.ts",
@@ -32,6 +46,9 @@
         "tests/route/additional-options.ts",
         "tests/route/public-interface.ts",
         "tests/route/auth.ts",
-        "tests/server/new.ts"
+        "tests/server/new.ts",
+        "catbox/index.d.ts",
+        "h2o2/index.d.ts",
+        "h2o2/h2o2-tests.ts"
     ]
 }

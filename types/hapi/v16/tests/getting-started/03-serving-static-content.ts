@@ -14,7 +14,7 @@ server.register(require('inert'), (err) => {
     server.route({
         method: 'GET',
         path: '/hello',
-        handler: function (request, reply) {
+        handler: function (request: Hapi.Request, reply: Hapi.IReply) {
             reply.file('./public/hello.html');
         }
     });

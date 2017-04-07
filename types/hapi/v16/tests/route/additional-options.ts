@@ -2,7 +2,7 @@
 
 import * as Hapi from 'hapi';
 
-var authConfig: Hapi.IRouteConfiguration = {
+var authConfig: Hapi.IRouteAdditionalConfigurationOptions = {
   app: {}
 };
 
