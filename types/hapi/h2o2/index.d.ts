@@ -65,7 +65,7 @@ export interface IProxyHandlerOptions {
 }
 
 declare module 'hapi' {
-    export interface IRouteConfiguration {
+    interface IRouteConfiguration {
         /**
          * the Proxy Handler
          * @see {@link https://github.com/hapijs/h2o2#replyproxyoptions}
